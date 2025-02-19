@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 
 import './index.css'
 
@@ -24,6 +25,12 @@ class Login extends Component {
     })
   }
 
+  handleCheckboxChange = () => {
+    this.setState(prevState => ({
+      showPassword: !prevState.showPassword,
+    }))
+  }
+
   renderUserNameField = () => {
     const {userName} = this.state
     return (
@@ -42,13 +49,13 @@ class Login extends Component {
   }
 
   renderPasswordField = () => {
-    const {password} = this.state
+    const {password, showPassword} = this.state
     return (
       <>
         <label htmlFor="password">PASSWORD</label>
         <br />
         <input
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           value={password}
           id="password"
           onChange={this.onChangePassword}
@@ -98,6 +105,10 @@ class Login extends Component {
 
   render() {
     const {showPassword, showLoginError, errorMsg} = this.state
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
     return (
       <div className="login-container">
         <form className="login-form-container" onSubmit={this.submitForm}>
@@ -108,7 +119,12 @@ class Login extends Component {
           {this.renderUserNameField()}
           {this.renderPasswordField()}
           <div>
-            <input type="checkbox" checked={showPassword} id="showPassword" />
+            <input
+              type="checkbox"
+              checked={showPassword}
+              id="showPassword"
+              onChange={this.handleCheckboxChange}
+            />
             <label htmlFor="showPassword">Show Password</label>
           </div>
           <button type="submit">Login</button>
