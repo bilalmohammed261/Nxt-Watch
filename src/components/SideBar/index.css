@@ -1,0 +1,27 @@
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.navbar-footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90vh;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-media-icons-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.social-media-icon {
+  height: 40px;
+  width: 40px;
+  margin-right: 5px;
+}
