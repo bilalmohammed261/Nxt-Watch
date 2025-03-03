@@ -1,0 +1,20 @@
+.video-container {
+  width: 32%;
+  display: flex;
+  flex-direction: column;
+  margin: 1px;
+}
+
+.profile-container {
+  display: flex;
+}
+
+.views-published-container {
+  display: flex;
+}
+
+.channel-img {
+  width: 60px;
+  height: 50px;
+  margin: 5px;
+}

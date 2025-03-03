@@ -25,3 +25,8 @@ ul {
   width: 40px;
   margin-right: 5px;
 }
+
+.no-underline {
+  text-decoration: none;
+  color: inherit;
+}

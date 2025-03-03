@@ -1,0 +1,14 @@
+.videos-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 5px;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.retry {
+  background-color: blueviolet;
+}

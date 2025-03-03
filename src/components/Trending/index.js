@@ -1,12 +1,12 @@
 import {IoIosClose} from 'react-icons/io'
 import SideBar from '../SideBar'
 import Header from '../Header'
-import AllVideos from '../AllVideos'
+import AllTrendingVideos from '../AllTrendingVideos'
 
 import './index.css'
 
-const Home = () => (
-  <div data-testid="home">
+const Trending = () => (
+  <div data-testid="trending">
     <Header />
     <div className="sidebar-banner-container">
       <SideBar />
@@ -31,10 +31,10 @@ const Home = () => (
           </button>
         </div>
 
-        <AllVideos />
+        <AllTrendingVideos />
       </div>
     </div>
   </div>
 )
 
-export default Home
+export default Trending
