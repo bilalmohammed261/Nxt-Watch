@@ -1,4 +1,4 @@
-import {IoIosClose} from 'react-icons/io'
+import {FaFire} from 'react-icons/fa'
 import SideBar from '../SideBar'
 import Header from '../Header'
 import AllTrendingVideos from '../AllTrendingVideos'
@@ -10,28 +10,14 @@ const Trending = () => (
     <Header />
     <div className="sidebar-banner-container">
       <SideBar />
-      <div className="home-banner-container">
-        <div className="banner-container">
-          <div className="image-icon-container">
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-              alt="website logo"
-              className="website-logo"
-            />
-            <button data-testid="close" type="button">
-              <IoIosClose />
-            </button>
+      <div>
+        <div className="trending-container">
+          <div className="trending-heading-logo-container">
+            <FaFire size={40} className="icon" />
+            <h1>Trending</h1>
           </div>
-          <p>
-            Buy Nxt Watch Premium prepaid plans with
-            <br /> UPI
-          </p>
-          <button type="button" className="get-it-btn">
-            GET IT NOW
-          </button>
+          <AllTrendingVideos />
         </div>
-
-        <AllTrendingVideos />
       </div>
     </div>
   </div>
