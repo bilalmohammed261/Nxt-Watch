@@ -21,6 +21,10 @@ class AllTrendingVideos extends Component {
     this.getTrendingVideos()
   }
 
+  clickRetry = () => {
+    this.getTrendingVideos()
+  }
+
   getTrendingVideos = async () => {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
@@ -77,7 +81,9 @@ class AllTrendingVideos extends Component {
       <h1>Oops! Something Went Wrong</h1>
       <p>We are having some trouble to complete your request.</p>
       <p>Please try again.</p>
-      <button type="button">Retry</button>
+      <button type="button" onClick={this.clickRetry}>
+        Retry
+      </button>
     </div>
   )
 

@@ -8,6 +8,8 @@ import {BiLike, BiDislike} from 'react-icons/bi'
 import {RiPlayListAddLine} from 'react-icons/ri'
 import Header from '../Header'
 import SideBar from '../SideBar'
+import WatchContext from '../../context/WatchContext'
+import {VideoDetailsContainer} from './styledComponents'
 import './index.css'
 
 const apiStatusConstants = {
@@ -23,9 +25,14 @@ class VideoItemDetailsRoute extends Component {
     videoData: {},
     isLiked: false,
     isDisLiked: false,
+    isSaved: false,
   }
 
   componentDidMount() {
+    this.getVideoItemDetails()
+  }
+
+  onRetry = () => {
     this.getVideoItemDetails()
   }
 
@@ -105,67 +112,89 @@ class VideoItemDetailsRoute extends Component {
       <h1>Oops! Something Went Wrong</h1>
       <p>We are having some trouble to complete your request.</p>
       <p>Please try again.</p>
-      <button type="button">Retry</button>
+      <button type="button" onClick={this.onRetry}>
+        Retry
+      </button>
     </div>
   )
 
-  renderSuccessView = () => {
-    const {videoData, isLiked, isDisLiked} = this.state
-    const btnLike = isLiked ? 'btn btn-bg-color' : 'btn'
-    const btnDisLike = isDisLiked ? 'btn btn-bg-color' : 'btn'
-    // console.log(videoData)
-    const {
-      videoUrl,
-      title,
-      publishedAt,
-      viewCount,
-      channel,
-      description,
-    } = videoData
-    const {name, profileImageUrl, subscriberCount} = channel
-    const dateObject = Date.parse(publishedAt, 'MMM dd, yyyy')
-    const result = formatDistanceToNowStrict(dateObject)
-    return (
-      <div>
-        <ReactPlayer url={videoUrl} />
-        <h1 className="title">{title}</h1>
-        <div className="views-published-buttons-container">
-          <div className="views-date">
-            <p>{viewCount} views </p>
-            <p>. {result} ago</p>
-          </div>
+  renderSuccessView = () => (
+    <WatchContext.Consumer>
+      {value => {
+        const {addToSavedVideos} = value
+
+        const {videoData, isLiked, isDisLiked, isSaved} = this.state
+        const btnLike = isLiked ? 'btn btn-bg-color' : 'btn'
+        const btnDisLike = isDisLiked ? 'btn btn-bg-color' : 'btn'
+        const btnSave = isSaved ? 'btn btn-bg-color' : 'btn'
+        const saveText = isSaved ? 'Saved' : 'Save'
+
+        const saveVideo = () => {
+          this.setState(prevState => ({
+            isSaved: !prevState.isSaved,
+          }))
+          addToSavedVideos(videoData)
+        }
+
+        // console.log(videoData)
+        const {
+          videoUrl,
+          title,
+          publishedAt,
+          viewCount,
+          channel,
+          description,
+        } = videoData
+        const {name, profileImageUrl, subscriberCount} = channel
+        const dateObject = Date.parse(publishedAt, 'MMM dd, yyyy')
+        const result = formatDistanceToNowStrict(dateObject)
+        return (
           <div>
-            <button type="button" onClick={this.likeVideo} className={btnLike}>
-              <BiLike /> Like
-            </button>
-            <button
-              type="button"
-              onClick={this.dislikeVideo}
-              className={btnDisLike}
-            >
-              <BiDislike /> DisLike
-            </button>
-            <button type="button">
-              <RiPlayListAddLine /> Save
-            </button>
+            <ReactPlayer url={videoUrl} />
+            <h1 className="title">{title}</h1>
+            <div className="views-published-buttons-container">
+              <div className="views-date">
+                <p>{viewCount} views </p>
+                <p>. {result} ago</p>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={this.likeVideo}
+                  className={btnLike}
+                >
+                  <BiLike /> Like
+                </button>
+                <button
+                  type="button"
+                  onClick={this.dislikeVideo}
+                  className={btnDisLike}
+                >
+                  <BiDislike /> DisLike
+                </button>
+                <button type="button" className={btnSave} onClick={saveVideo}>
+                  <RiPlayListAddLine /> {saveText}
+                </button>
+              </div>
+            </div>
+            <hr className="line" />
+            <div className="channel-details">
+              <img
+                src={profileImageUrl}
+                alt="channel logo"
+                className="channel-img"
+              />
+              <div className="channel-subscribers">
+                <p>{name}</p>
+                <p>{subscriberCount}</p>
+                <p>{description}</p>
+              </div>
+            </div>
           </div>
-        </div>
-        <hr className="line" />
-        <div className="channel-details">
-          <img
-            src={profileImageUrl}
-            alt="channel logo"
-            className="channel-img"
-          />
-          <div className="channel-subscribers">
-            <p>{name}</p>
-            <p>{subscriberCount}</p>
-            <p>{description}</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
+        )
+      }}
+    </WatchContext.Consumer>
+  )
 
   renderVideoItemDetails = () => {
     const {apiStatus} = this.state
@@ -184,14 +213,24 @@ class VideoItemDetailsRoute extends Component {
 
   render() {
     return (
-      <div data-testid="videoItemDetails">
-        <Header />
-        <div className="sidebar-banner-container">
-          <SideBar />
+      <WatchContext.Consumer>
+        {value => {
+          const {isDark} = value
+          return (
+            <VideoDetailsContainer
+              data-testid="videoItemDetails"
+              isDark={isDark}
+            >
+              <Header />
+              <div className="sidebar-banner-container">
+                <SideBar />
 
-          {this.renderVideoItemDetails()}
-        </div>
-      </div>
+                {this.renderVideoItemDetails()}
+              </div>
+            </VideoDetailsContainer>
+          )
+        }}
+      </WatchContext.Consumer>
     )
   }
 }

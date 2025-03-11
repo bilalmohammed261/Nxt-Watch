@@ -28,7 +28,12 @@ const SearchFilter = props => {
         onChange={onChangeSearchInput}
         onKeyDown={onEnterSearchInput}
       />
-      <button type="button" className="search-button" onClick={onClickSearch}>
+      <button
+        type="button"
+        className="search-button"
+        onClick={onClickSearch}
+        data-testid="searchButton"
+      >
         <BsSearch className="search-icon" />
       </button>
     </div>

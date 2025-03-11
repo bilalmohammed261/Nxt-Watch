@@ -28,10 +28,12 @@ const SideBar = () => (
             <span>Gaming</span>
           </li>
         </Link>
-        <li>
-          <RiPlayListAddLine />
-          <span>Saved videos</span>
-        </li>
+        <Link to="/saved-videos" className="no-underline">
+          <li>
+            <RiPlayListAddLine />
+            <span>Saved videos</span>
+          </li>
+        </Link>
       </ul>
     </nav>
 

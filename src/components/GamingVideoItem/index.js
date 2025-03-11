@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import './index.css'
 
-const VideoItem = props => {
+const GamingVideoItem = props => {
   const {video} = props
   const {thumbnailUrl, viewCount, title, id} = video
 
@@ -18,4 +18,4 @@ const VideoItem = props => {
   )
 }
 
-export default VideoItem
+export default GamingVideoItem

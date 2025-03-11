@@ -30,8 +30,10 @@
   cursor: pointer;
   background: transparent;
   margin: 5px;
+  color: #64748b;
 }
 
 .btn-bg-color {
   background-color: #3b82f6;
+  color: #2563eb;
 }
