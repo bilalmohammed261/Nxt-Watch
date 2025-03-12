@@ -38,7 +38,7 @@ const SideBar = () => (
     </nav>
 
     <footer className="footer">
-      <h1>CONTACT US</h1>
+      <p>CONTACT US</p>
       <div className="social-media-icons-container">
         <img
           src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
@@ -56,11 +56,7 @@ const SideBar = () => (
           className="social-media-icon"
         />
       </div>
-      <p>
-        Enjoy! Now to see your
-        <br />
-        channels and <br /> recommendations!
-      </p>
+      <p>Enjoy! Now to see your channels and recommendations!</p>
     </footer>
   </div>
 )

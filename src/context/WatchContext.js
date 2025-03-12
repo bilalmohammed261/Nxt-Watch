@@ -5,6 +5,7 @@ const WatchContext = React.createContext({
   isDark: false,
   changeTheme: () => {},
   addToSavedVideos: () => {},
+  removeFromSavedVideos: () => {},
 })
 
 export default WatchContext

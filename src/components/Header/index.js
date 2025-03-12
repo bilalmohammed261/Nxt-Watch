@@ -14,7 +14,7 @@ const Header = props => {
   const onClickLogout = () => {
     const {history} = props
     Cookies.remove('jwt_token')
-    history.push('/login')
+    history.replace('/login')
   }
 
   return (
@@ -58,7 +58,7 @@ const Header = props => {
               >
                 {close => (
                   <div>
-                    <p>Are you sure,you want to logout?</p>
+                    <p>Are you sure, you want to logout</p>
                     <button type="button" onClick={() => close()}>
                       Cancel
                     </button>

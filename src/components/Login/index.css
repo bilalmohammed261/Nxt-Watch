@@ -16,3 +16,12 @@
   width: 350px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.login-btn {
+  color: #ffffff;
+  background-color: #3b82f6;
+  height: 40px;
+  width: 80px;
+  padding: 5px;
+  margin-top: 5px;
+}

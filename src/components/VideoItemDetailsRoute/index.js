@@ -9,7 +9,12 @@ import {RiPlayListAddLine} from 'react-icons/ri'
 import Header from '../Header'
 import SideBar from '../SideBar'
 import WatchContext from '../../context/WatchContext'
-import {VideoDetailsContainer} from './styledComponents'
+import {
+  VideoDetailsContainer,
+  LikeButton,
+  DisLikeButton,
+} from './styledComponents'
+
 import './index.css'
 
 const apiStatusConstants = {
@@ -25,7 +30,6 @@ class VideoItemDetailsRoute extends Component {
     videoData: {},
     isLiked: false,
     isDisLiked: false,
-    isSaved: false,
   }
 
   componentDidMount() {
@@ -121,19 +125,18 @@ class VideoItemDetailsRoute extends Component {
   renderSuccessView = () => (
     <WatchContext.Consumer>
       {value => {
-        const {addToSavedVideos} = value
+        const {addToSavedVideos, removeFromSavedVideos, savedVideos} = value
 
-        const {videoData, isLiked, isDisLiked, isSaved} = this.state
-        const btnLike = isLiked ? 'btn btn-bg-color' : 'btn'
-        const btnDisLike = isDisLiked ? 'btn btn-bg-color' : 'btn'
-        const btnSave = isSaved ? 'btn btn-bg-color' : 'btn'
+        const {videoData, isLiked, isDisLiked} = this.state
+        // const btnLike = isLiked ? 'btn-bg-color btn' : 'btn'
+        // const btnDisLike = isDisLiked ? 'btn-bg-color btn' : 'btn'
+        const isSaved = savedVideos.some(video => video.id === videoData.id)
+        const btnSave = isSaved ? ' btn-bg-color btn' : 'btn'
         const saveText = isSaved ? 'Saved' : 'Save'
 
-        const saveVideo = () => {
-          this.setState(prevState => ({
-            isSaved: !prevState.isSaved,
-          }))
-          addToSavedVideos(videoData)
+        const toggleSaveVideo = () => {
+          if (!isSaved) addToSavedVideos(videoData)
+          else removeFromSavedVideos(videoData)
         }
 
         // console.log(videoData)
@@ -151,28 +154,34 @@ class VideoItemDetailsRoute extends Component {
         return (
           <div>
             <ReactPlayer url={videoUrl} />
-            <h1 className="title">{title}</h1>
+            <p className="title">{title}</p>
             <div className="views-published-buttons-container">
               <div className="views-date">
                 <p>{viewCount} views </p>
                 <p>. {result} ago</p>
               </div>
               <div>
-                <button
+                <LikeButton
                   type="button"
                   onClick={this.likeVideo}
-                  className={btnLike}
+                  isLiked={isLiked}
                 >
-                  <BiLike /> Like
-                </button>
-                <button
+                  <BiLike />
+                  Like
+                </LikeButton>
+                <DisLikeButton
                   type="button"
                   onClick={this.dislikeVideo}
-                  className={btnDisLike}
+                  isDisLiked={isDisLiked}
                 >
-                  <BiDislike /> DisLike
-                </button>
-                <button type="button" className={btnSave} onClick={saveVideo}>
+                  <BiDislike />
+                  Dislike
+                </DisLikeButton>
+                <button
+                  type="button"
+                  className={btnSave}
+                  onClick={toggleSaveVideo}
+                >
                   <RiPlayListAddLine /> {saveText}
                 </button>
               </div>

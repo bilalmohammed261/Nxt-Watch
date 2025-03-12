@@ -91,7 +91,9 @@ class AllVideos extends Component {
       <h1>Oops! Something Went Wrong</h1>
       <p>We are having some trouble to complete your request.</p>
       <p>Please try again.</p>
-      <button type="button">Retry</button>
+      <button type="button" onClick={this.onClickRetry}>
+        Retry
+      </button>
     </div>
   )
 
@@ -112,7 +114,7 @@ class AllVideos extends Component {
         />
         <h1>No Search results found</h1>
         <p>Try different key words or remove search filter</p>
-        <button type="button" className="retry" onClick={this.onClickRetry}>
+        <button type="button" className="retry">
           Retry
         </button>
       </div>

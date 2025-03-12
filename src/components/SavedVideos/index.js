@@ -36,7 +36,7 @@ const SavedVideos = () => (
                   </div>
                   <ul>
                     {savedVideos.map(video => (
-                      <SavedVideoItem id={video.id} video={video} />
+                      <SavedVideoItem key={video.id} video={video} />
                     ))}
                   </ul>
                 </div>
